@@ -58,7 +58,7 @@ export function Register() {
     resolver: yupResolver(schema)
   });
 
-  function handleTransactionsTypes(type: "up" | "down") {
+  function handleTransactionsTypes(type: "positive" | "negative") {
     setTransactionType(type);
   }
 
@@ -81,7 +81,7 @@ export function Register() {
       id:  String(uuid.v4()),
       name: form.name,
       amount: form.amount,
-      transactionType,
+      type: transactionType,
       category: category.key,
       date: new Date(),
     };
@@ -143,14 +143,14 @@ export function Register() {
               <TransactionTypeButton
                 type="up"
                 title="Income"
-                onPress={() => handleTransactionsTypes("up")}
-                isActive={transactionType === "up"}
+                onPress={() => handleTransactionsTypes("positive")}
+                isActive={transactionType === "positive"}
               />
               <TransactionTypeButton
                 type="down"
                 title="Outcome"
-                onPress={() => handleTransactionsTypes("down")}
-                isActive={transactionType === "down"}
+                onPress={() => handleTransactionsTypes("negative")}
+                isActive={transactionType === "negative"}
               />
             </TransactionsTypes>
 
