@@ -11,6 +11,7 @@ import {
 } from 'react-native-iphone-x-helper';
 
 import { DataListProps } from '.';
+import { BorderlessButton } from 'react-native-gesture-handler';
 export const Container = styled.View`
     flex: 1;
     background: ${({ theme }) => theme.colors.background};
@@ -66,6 +67,10 @@ export const Header = styled.View`
         font-size: ${RFValue(24)}px;
     `;
 
+    export const LogoutButton = styled(BorderlessButton)`
+        
+    `;
+
     export const HightlightCards = styled.ScrollView.attrs({
         horizontal: true,
         showsHorizontalScrollIndicator: false,
@@ -97,3 +102,4 @@ export const Header = styled.View`
             paddingBottom: getBottomSpace()
         }
     })``; 
+
