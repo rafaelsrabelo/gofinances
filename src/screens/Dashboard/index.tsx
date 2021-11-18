@@ -32,6 +32,7 @@ export interface DataListProps extends TransactionCardProps {
 
 interface HightlightProps {
   amount: string;
+  lastTransaction: string;
 }
 
 interface HightlighData {
@@ -48,6 +49,22 @@ export function Dashboard() {
   );
 
   const theme = useTheme();
+
+  function getLastTransactionDate(
+    collection: DataListProps[],
+    type: 'positive' | 'negative'
+    ) {
+
+
+    const lastTransaction = new Date(
+    Math.max.apply(Math, collection
+      .filter(transaction => transaction.type === type)
+      .map(transaction => new Date(transaction.date).getTime())));
+      
+      return `${lastTransaction.getDate()} de  ${lastTransaction.toLocaleString('pt-BR', {
+        month: 'long'
+      })}`;
+  }
 
   async function loadTransactions() {
     const datakey = "@gofinances:transactions";
@@ -87,27 +104,36 @@ export function Dashboard() {
       }
     );
 
+    setTransactions(transactionsFormatted);
+
+    const lastTransactionEntries = getLastTransactionDate(transactions, 'positive')
+    const lastTransactionExpensives = getLastTransactionDate(transactions, 'negative')
+    const totalInterval = `01 a ${lastTransactionEntries}`
+    console.log()
+
     const total = entriesTotal - expenseveTotal;
 
-    setTransactions(transactionsFormatted);
     setHightlighData({
       entries: {
         amount: entriesTotal.toLocaleString("pt-BR", {
           style: "currency",
           currency: "BRL",
         }),
+        lastTransaction: `Última entrada dia ${lastTransactionEntries}`,
       },
       expensives: {
         amount: expenseveTotal.toLocaleString("pt-BR", {
           style: "currency",
           currency: "BRL",
         }),
+        lastTransaction: `Última saída dia ${lastTransactionExpensives}`,
       },
       total: {
-        amount: expenseveTotal.toLocaleString("pt-BR", {
+        amount: total.toLocaleString("pt-BR", {
           style: "currency",
           currency: "BRL",
         }),
+        lastTransaction: totalInterval,
       },
     });
 
@@ -121,6 +147,9 @@ export function Dashboard() {
   useFocusEffect(
     useCallback(() => {
       loadTransactions();
+
+    //   const datakey = '@gofinances:transactions'
+    //     AsyncStorage.removeItem(datakey);
     }, [])
   );
 
@@ -159,19 +188,20 @@ export function Dashboard() {
               type="up"
               title="Entradas"
               amount={hightlighData.entries.amount}
-              lastTransaction="Última entrada dia 13 de Agosto"
+              lastTransaction={hightlighData.entries.lastTransaction}
             />
             <HightlightCard
               type="down"
               title="Saídas"
               amount={hightlighData.expensives.amount}
-              lastTransaction="Última entrada dia 03 de Agosto"
+              lastTransaction={hightlighData.expensives.lastTransaction}
+
             />
             <HightlightCard
               type="total"
               title="Total"
               amount={hightlighData.total.amount}
-              lastTransaction="03 à 13 de Agosto"
+              lastTransaction={hightlighData.total.lastTransaction}
             />
           </HightlightCards>
 
