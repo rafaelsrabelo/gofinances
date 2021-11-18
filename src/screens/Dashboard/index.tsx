@@ -148,8 +148,8 @@ export function Dashboard() {
     useCallback(() => {
       loadTransactions();
 
-    //   const datakey = '@gofinances:transactions'
-    //     AsyncStorage.removeItem(datakey);
+      // const datakey = '@gofinances:transactions'
+      //   AsyncStorage.removeItem(datakey);
     }, [])
   );
 

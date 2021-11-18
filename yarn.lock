@@ -2558,6 +2558,18 @@ d3-voronoi@^1.1.2:
   resolved "https://registry.yarnpkg.com/d3-voronoi/-/d3-voronoi-1.1.4.tgz#dd3c78d7653d2bb359284ae478645d95944c8297"
   integrity sha512-dArJ32hchFsrQ8uMiTBLq256MpnZjeuBtdHpaDlYuQyjU0CVzCJl/BVW+SkszaAeH95D/8gxqAhgx0ouAWAfRg==
 
+data-fns@^0.1.8:
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/data-fns/-/data-fns-0.1.8.tgz#bfd171aabcd7cbdbb946d55f50ed2c5744b3b714"
+  integrity sha512-3aC+mM92aUWsTx3lYD9el6RUZqaQceQeUw16de/cb9gyjp/CJ3yekYtsxQOYQoPAM2+kgfp1Km6zkzh5Q4+EYA==
+  dependencies:
+    unit-fns "^0.1.6"
+
+date-fns@^2.25.0:
+  version "2.25.0"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.25.0.tgz#8c5c8f1d958be3809a9a03f4b742eba894fc5680"
+  integrity sha512-ovYRFnTrbGPD4nqaEqescPEv1mNwvt+UTqI3Ay9SzNtey9NZnYu6E2qCcBBgJ6/2VF1zGGygpyTDITqpQQ5e+w==
+
 dayjs@^1.8.15:
   version "1.10.7"
   resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.10.7.tgz#2cf5f91add28116748440866a0a1d26f3a6ce468"
@@ -6003,6 +6015,11 @@ unique-string@^1.0.0:
   integrity sha1-nhBXzKhRq7kzmPizOuGHuZyuwRo=
   dependencies:
     crypto-random-string "^1.0.0"
+
+unit-fns@^0.1.6:
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/unit-fns/-/unit-fns-0.1.7.tgz#7bf2663f84ff8fdc54cb976320a0b86c3a222e0d"
+  integrity sha512-A6fT2bPCKjryr//T8X+euo2g9e5VRGIwOmLHb9bSasMBdKWQ+By3OwXkwTJbK8C6kUmJnbSCcJCNxJkkmKS15A==
 
 universalify@^0.1.0:
   version "0.1.2"
