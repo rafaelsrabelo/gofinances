@@ -52,3 +52,9 @@ export const Month = styled.Text`
     font-family: ${({theme}) => theme.fonts.regular};
     color: ${({theme}) => theme.colors.text_dark};
 `;
+
+export const LoadContainer = styled.View`
+flex: 1;
+justify-content: center;
+align-items: center;
+`;

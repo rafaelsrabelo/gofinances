@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
+import { ActivityIndicator } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { HistoryCard } from "../../components/HistoryCard";
@@ -12,6 +14,7 @@ import {
   MonthSelectButton,
   MonthSelectIcon,
   Month,
+  LoadContainer
 } from "./styles";
 import { categories } from "../../utils/categories";
 import { addMonths, subMonths, format } from "date-fns"
@@ -38,6 +41,7 @@ interface CategoryData {
 }
 
 export function Resume() {
+  const [isLoading, setIsLoading] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [totalByCategories, setTotalByCategories] = useState<CategoryData[]>([]);
   
@@ -47,8 +51,6 @@ export function Resume() {
     if(action === 'next') {
      const newDate = addMonths(selectedDate, 1)
      setSelectedDate(newDate)
-
-     console.log(newDate)
     }else{
       const newDate = subMonths(selectedDate, 1)
       setSelectedDate(newDate)
@@ -56,6 +58,7 @@ export function Resume() {
   }
 
   async function loadData() {
+    setIsLoading(true);
     const datakey = "@gofinances:transactions";
     const response = await AsyncStorage.getItem(datakey);
     const reseponseFormatted = response ? JSON.parse(response) : [];
@@ -71,8 +74,6 @@ export function Resume() {
     .reduce((acumullator: number, expensive: TransactionDate) => {
       return acumullator + Number(expensive.amount);
     }, 0);
-
-    console.log(expensivesTotal);
 
     const totalByCategory: CategoryData[] = [];
 
@@ -104,18 +105,29 @@ export function Resume() {
     });
 
     setTotalByCategories(totalByCategory);
+    setIsLoading(false);
   }
 
-  useEffect(() => {
-    loadData();
-  }, [selectedDate]);
-
+  useFocusEffect(
+    useCallback(() => {
+      loadData();
+    }, [selectedDate])
+  );
+  
   return (
     <Container>
+      
       <Header>
         <Title>Resumo por categoria</Title>
       </Header>
-
+      {
+        isLoading ? 
+          <LoadContainer> 
+              <ActivityIndicator 
+                        color={theme.colors.primary} 
+                        size="large"
+                        />
+                  </LoadContainer> : 
       <Content 
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
@@ -155,7 +167,6 @@ export function Resume() {
           y="total"
         />
       </ChartContainer>
-
           {
           totalByCategories.map((item) => (
             <HistoryCard
@@ -167,6 +178,7 @@ export function Resume() {
           ))
           }
       </Content>
+      }
     </Container>
   );
 }
