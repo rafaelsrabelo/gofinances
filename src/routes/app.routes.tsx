@@ -12,6 +12,7 @@ const {
 import { Dashboard } from '../screens/Dashboard';
 import { Register } from '../screens/Register';
 import { Resume } from '../screens/Resume';
+import { SignIn } from '../screens/SignIn';
 
 export function AppRoutes() {
     const theme = useTheme();
@@ -30,7 +31,7 @@ export function AppRoutes() {
         >
             <Screen 
                 name="Listagem" 
-                component={Dashboard} 
+                component={SignIn} 
                 options={{
                     tabBarIcon: (({ size, color }) => 
                         <MaterialIcons 
