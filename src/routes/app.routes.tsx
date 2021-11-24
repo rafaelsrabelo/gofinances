@@ -31,7 +31,7 @@ export function AppRoutes() {
         >
             <Screen 
                 name="Listagem" 
-                component={SignIn} 
+                component={Dashboard} 
                 options={{
                     tabBarIcon: (({ size, color }) => 
                         <MaterialIcons 

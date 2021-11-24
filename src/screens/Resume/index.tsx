@@ -3,6 +3,7 @@ import { ActivityIndicator } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
+import { useAuth } from "../../hooks/auth";
 import { HistoryCard } from "../../components/HistoryCard";
 import { 
   Container, 
@@ -47,6 +48,8 @@ export function Resume() {
   
   const theme = useTheme();
 
+  const { user } = useAuth();
+
   function handleChangeDate(action: 'next' | 'prev') {
     if(action === 'next') {
      const newDate = addMonths(selectedDate, 1)
@@ -59,7 +62,7 @@ export function Resume() {
 
   async function loadData() {
     setIsLoading(true);
-    const datakey = "@gofinances:transactions";
+    const datakey = `@gofinances:transactions_user:${user.id}`;
     const response = await AsyncStorage.getItem(datakey);
     const reseponseFormatted = response ? JSON.parse(response) : [];
 
